@@ -44,4 +44,8 @@ public class Pushable : MonoBehaviour
             transform.Translate(directionToPlayer.normalized / 100, Space.World);
         }
     }
+    public void BreakPushable()
+    {
+        Destroy(this.gameObject);
+    }
 }

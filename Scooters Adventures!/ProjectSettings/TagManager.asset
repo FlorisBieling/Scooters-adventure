@@ -10,6 +10,10 @@ TagManager:
   - Pushable
   - Water
   - Level
+  - HamsterBall
+  - ScoreText
+  - TotalScoreText
+  - Camera
   layers:
   - Default
   - TransparentFX
@@ -18,7 +22,7 @@ TagManager:
   - Water
   - UI
   - Walls
-  - 
+  - Splash
   - 
   - 
   - 

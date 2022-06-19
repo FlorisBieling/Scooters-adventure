@@ -10,6 +10,7 @@ public class Deathscreen : MonoBehaviour
     {
         //this goes from the menu scene to the next scene
         SceneManager.LoadScene(Player.currentScene);
+        Debug.Log("play again");
     }
 
     public void QuitGame()

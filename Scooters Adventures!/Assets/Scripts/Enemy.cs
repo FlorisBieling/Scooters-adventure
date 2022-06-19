@@ -44,12 +44,23 @@ public class Enemy : MonoBehaviour
                 animator.SetBool("hasDied", true);
             }
         }
+        else if(other.gameObject.tag == "Pushable")
+        {
+            other.gameObject.GetComponent<Pushable>().BreakPushable();
+            StartCoroutine("HitAnimation");
+        }
     }
     IEnumerator DestroyMyself()
     {
         collider.enabled = false;
         yield return new WaitForSeconds(3);
         gameObject.SetActive(false);
+    }
+    IEnumerator HitAnimation()
+    {
+        animator.SetBool("hitPlayer", true);
+        yield return new WaitForSeconds(1);
+        animator.SetBool("hitPlayer", false);
     }
 
     public void LookAtPlayer()
@@ -67,6 +78,7 @@ public class Enemy : MonoBehaviour
     {
         print("kill that son of a bitch roll over his head");
         StartCoroutine("DestroyMyself");
+        Scoring.IncreaseScore(100, this.transform.position, Player.currentScene);
     }
 
 }

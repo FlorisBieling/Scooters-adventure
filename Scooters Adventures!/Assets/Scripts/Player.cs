@@ -21,10 +21,12 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        currentScene = SceneManager.GetActiveScene().buildIndex;
         spawnPosition = GameObject.FindGameObjectWithTag("SpawnPosition");
         animator = GetComponent<Animator>();
         ResetPlayer();
         //ResetLevel();   
+        Scoring.UpdateScoreText(currentScene);
     }
 
     // Update is called once per frame
@@ -37,6 +39,9 @@ public class Player : MonoBehaviour
             //animator.Update(0f);
             resetAnimatioansagnasTemp = false;
         }
+        print(currentScene + " --- " + Scoring.scoresAllLevels[currentScene]);
+
+        if (Input.GetKeyDown(KeyCode.X)) ResetLevel();
     }
 
     private void ResetPlayer()
@@ -48,9 +53,10 @@ public class Player : MonoBehaviour
         else if (!startInBall) BreakPlayerBall();
         canMove = true;
     }
-    private void ResetLevel()
+    public void ResetLevel()
     {
-        //amountOfAxes = 0;
+        SceneManager.LoadScene(currentScene);
+        Scoring.ResetScore(currentScene);
     }
 
     private void Movement()
@@ -168,6 +174,7 @@ public class Player : MonoBehaviour
     {
         animator.SetBool("hasDied", true);
         canMove = false;
+        Scoring.ResetScore(currentScene);
         StartCoroutine("Deathscreen");
     }
 
@@ -188,6 +195,7 @@ public class Player : MonoBehaviour
     {
         currentScene = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene("BetweenLevels");
+        Scoring.UpdateScoreText(currentScene);
     }
 
 
